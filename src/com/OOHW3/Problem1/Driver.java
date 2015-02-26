@@ -3,7 +3,7 @@ package com.OOHW3.Problem1;
 public class Driver {
 
     public static void main(String[] args) {
-        SubmissionQueue sq = SubmissionQueue.getSubmissionQueue();
+        SubmissionQueue sq1 = SubmissionQueue.getSubmissionQueue();
 
         Submission[] submissionArray;
         submissionArray = new Submission[5];
@@ -12,22 +12,22 @@ public class Driver {
         }
 
         for(Submission submission : submissionArray){
-            sq.add(submission);
+            SubmissionQueue.add(submission);
         }
 
         // Should equal first submission
-        sq.process();
+        SubmissionQueue.process();
 
         // Get new submission queue, should return the same instance
         SubmissionQueue sq2 = SubmissionQueue.getSubmissionQueue();
 
         // Should be second submission
-        sq2.process();
+        SubmissionQueue.process();
 
         // Should be third submission
-        sq.process();
-        sq.process();
-        sq.process();
+        sq1.process();
+        SubmissionQueue.process();
         sq2.process();
+        SubmissionQueue.process();
     }
 }
