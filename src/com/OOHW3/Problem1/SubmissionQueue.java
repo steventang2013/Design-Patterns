@@ -5,27 +5,31 @@ import java.util.Queue;
 
 public class SubmissionQueue {
     // Actual FIFO queue to store submissions
-    private static Queue<Submission> queue = new LinkedList<Submission>();
+    private static Queue<Submission> myQueue;
+    private static SubmissionQueue mySubmissionQueue;
 
-    // Singleton
-    private SubmissionQueue() {}
-    private static SubmissionQueue queueInstance = null;
-    public static SubmissionQueue getSubmissionQueue() {
-        // If we really want to be correct I think we have to do some java magic here to allow multithreading.
-        if (queueInstance == null){
-            queueInstance = new SubmissionQueue();
-        }
-        return queueInstance;
+    //Empty Constructor
+    private SubmissionQueue() {
+      myQueue = new LinkedList<Submission>();
     }
 
-    public void add(Submission s){
-        queue.add(s);
+
+    public static SubmissionQueue getSubmissionQueue() {
+        // If we really want to be correct I think we have to do some java magic here to allow multithreading.
+        if (mySubmissionQueue == null){
+            mySubmissionQueue = new SubmissionQueue();
+        }
+        return mySubmissionQueue;
+    }
+
+    public static void add(Submission s){
+        getSubmissionQueue().myQueue.add(s);
         System.out.println("Added submission to queue: " + s);
     }
 
-    public Submission process(){
+    public static Submission process(){
         // Get next element
-        Submission s = queue.poll();
+        Submission s = getSubmissionQueue().myQueue.poll();
         if(s == null){
             System.out.println("Queue empty, nothing removed.");
         } else {
