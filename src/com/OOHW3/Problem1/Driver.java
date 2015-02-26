@@ -1,6 +1,6 @@
 package com.OOHW3.Problem1;
 
-public class Main {
+public class Driver {
 
     public static void main(String[] args) {
         SubmissionQueue sq = SubmissionQueue.getSubmissionQueue();
