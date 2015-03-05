@@ -2,37 +2,40 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class SubmissionQueue {
-    // Actual FIFO queue to store submissions
-    private static Queue<Submission> myQueue;
-    private static SubmissionQueue mySubmissionQueue;
+  //Native Java FIFO queue for submission storing
+  private static Queue<Submission> nativeQueue;
+  private static SubmissionQueue mySubmissionQueue;
 
-    //Empty Constructor
-    private SubmissionQueue() {
-      myQueue = new LinkedList<Submission>();
+  //New SubmissionQueue Constructor
+  private SubmissionQueue() {
+    //Create new Java native Queue
+    nativeQueue = new LinkedList<Submission>();
+  }
+
+  public static SubmissionQueue getSubmissionQueue() {
+    if (mySubmissionQueue == null){
+        //create new SubmissionQueue
+        mySubmissionQueue = new SubmissionQueue();
     }
+      return mySubmissionQueue;
+  }
 
+  public static void add(Submission s){
+    //Enqueue Submission element
+    getSubmissionQueue().nativeQueue.add(s);
+    System.out.println("Added submission of value " + s + " to queue");
+  }
 
-    public static SubmissionQueue getSubmissionQueue() {
-        // If we really want to be correct I think we have to do some java magic here to allow multithreading.
-        if (mySubmissionQueue == null){
-            mySubmissionQueue = new SubmissionQueue();
-        }
-        return mySubmissionQueue;
+  public static Submission process(){
+    //Dequeu first Submission element
+    Submission s = getSubmissionQueue().nativeQueue.poll();
+    if(s == null){
+        System.out.println("Queue empty, nothing removed.");
     }
-
-    public static void add(Submission s){
-        getSubmissionQueue().myQueue.add(s);
-        System.out.println("Added submission to queue: " + s);
+    else {
+        System.out.println("Removed " + s + " from queue");
     }
-
-    public static Submission process(){
-        // Get next element
-        Submission s = getSubmissionQueue().myQueue.poll();
-        if(s == null){
-            System.out.println("Queue empty, nothing removed.");
-        } else {
-            System.out.println("Removed from queue: " + s);
-        }
-        return s;
-    }
+    //Return submission
+    return s;
+  }
 }

@@ -9,7 +9,6 @@ public class Submission {
     private static Random rand = new Random();
     private int id;
 
-
     public Submission() {
         // Give this submission a unique(ish) id
         id = rand.nextInt(10000000);
